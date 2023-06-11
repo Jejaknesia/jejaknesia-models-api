@@ -1,7 +1,7 @@
 import h5py
 
 # Menentukan path file model .h5
-model_path = 'Place_Recommender_1.h5'
+model_path = 'converted_model.tflite'
 
 # Membuka file model
 with h5py.File(model_path, 'r') as file:
