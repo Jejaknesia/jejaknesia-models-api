@@ -15,7 +15,10 @@ def index():
     return "Hello world from ML endpoint!"
 
 class RequestText(BaseModel):
-    text: str
+    data: str
+
+class RequestData(BaseModel):
+    data: List[str]
 
 interpreter = tf.lite.Interpreter(model_path="converted_model.tflite")
 def recommendtflite(textinput):
@@ -48,25 +51,38 @@ def recommendrawmodel(textinputarr):
     
     return arr
 
-@app.post("/predict_text")
-def predict_text(req: RequestText, response: Response):
+@app.post("/predict_place")
+def predict_place(req: RequestText, response: Response):
     try:
-        text = req.text
-        print("Uploaded text:", text)
+        text = req.data
+        print("Uploaded data:", text)
         result = recommendtflite(text)
         
-        return result
+        response_dict = {
+            "status": "success",
+            "error": False,
+            "result": result
+        }
+        
+        return response_dict
     
     except Exception as e:
         traceback.print_exc()
         response.status_code = 500
         return "Internal Server Error"
-    
-@app.post("/predict_text2")
-def predict_text(req: List[str], response: Response):
+
+@app.post("/predict_places")
+def predict_places(req: RequestData, response: Response):
     try:
-        result = recommendrawmodel(req)
-        return result
+        result = recommendrawmodel(req.data)
+        
+        response_dict = {
+            "status": "success",
+            "error": False,
+            "result": result
+        }
+        
+        return response_dict
     
     except Exception as e:
         traceback.print_exc()
