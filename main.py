@@ -75,7 +75,14 @@ def predict_place(req: RequestText, response: Response):
 def predict_places(req: RequestData, response: Response):
     try:
         result = recommendrawmodel(req.data)
-        return result
+        
+        response_dict = {
+            "status": "success",
+            "error": False,
+            "result": result
+        }
+        
+        return response_dict
     
     except Exception as e:
         traceback.print_exc()
