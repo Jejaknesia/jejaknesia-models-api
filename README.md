@@ -105,5 +105,3 @@ POST /predict_places
 ## Error Handling
 
 If an error occurs during the prediction process, the API will respond with a status code of 500 and the message "Internal Server Error".
-
-That's a brief documentation for the given API. You can add it to your README.md file on GitHub. Make sure to include information about installation, dependencies, and how to use the API.
